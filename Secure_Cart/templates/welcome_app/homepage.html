@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Site</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .welcome-message {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* Split into 5 equal parts */
+            gap: 20px; /* Spacing between columns */
+            align-items: start; /* Align items at the top */
+        }
+
+        .products {
+            grid-column: 2 / 5; /* Span columns 2, 3, and 4 */
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 products per row */
+            gap: 20px; /* Spacing between product cards */
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100px; /* Smaller height for images */
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .product-card h3 {
+            font-size: 16px; /* Smaller font size */
+            margin-bottom: 5px;
+        }
+
+        .product-card p {
+            font-size: 12px; /* Smaller font size for description */
+            color: #555;
+        }
+
+        .product-card .price {
+            font-weight: bold;
+            color: #000;
+        }
+
+        .product-card .inventory {
+            color: #007bff;
+            font-size: 12px;
+            margin: 5px 0;
+        }
+
+        .actions {
+            grid-column: 5 / 6; /* Occupy the 5th column */
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Space between buttons */
+        }
+
+        .actions button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .actions button:hover {
+            background-color: #0056b3;
+        }
+
+        .product-card button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .product-card button.disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Message -->
+    <div class="welcome-message">
+        <h1>Welcome, {{ request.user.username }}!</h1>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="layout">
+        <!-- Products Section -->
+        <div class="products">
+            {% for product in products %}
+            <div class="product-card">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% endif %}
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.description }}</p>
+                <p class="price">£{{ product.price }}</p>
+                <p class="inventory">
+                    {% if product.inventory > 0 %}
+                        In Stock: {{ product.inventory }}
+                    {% else %}
+                        Out of Stock
+                    {% endif %}
+                </p>
+                {% if product.inventory > 0 %}
+                <a href="{% url 'add_to_basket' product.id %}">
+                    <button>Add to Basket</button>
+                </a>
+                {% else %}
+                <button class="disabled" disabled>Out of Stock</button>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p>No products available.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Actions Section -->
+        <div class="actions">
+            <a href="{% url 'update_profile' %}">
+                <button>Update Profile</button>
+            </a>
+            <a href="{% url 'view_basket' %}">
+                <button>View Basket</button>
+            </a>
+            <a href="{% url 'orders' %}">
+                <button>View Orders</button>
+            </a>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Security Question</title>
+</head>
+<body>
+    <h1>Verify Security Question</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p><strong>Security Question:</strong> {{ security_question }}</p>
+        <label for="security_answer">Your Answer:</label>
+        <input type="text" id="security_answer" name="security_answer" required><br><br>
+        <button type="submit">Verify</button>
+    </form>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

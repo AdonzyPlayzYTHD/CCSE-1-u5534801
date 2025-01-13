@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users and Their Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Users and Their Orders</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Surname</th>
+                <th>Address</th>
+                <th>Postcode</th>
+                <th>Orders</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_data in users_with_orders %}
+            <tr>
+                <td>{{ user_data.user.username }}</td>
+                <td>{{ user_data.user.email }}</td>
+                <td>{{ user_data.user.profile.first_name }}</td>
+                <td>{{ user_data.user.profile.surname }}</td>
+                <td>{{ user_data.user.profile.address }}</td>
+                <td>{{ user_data.user.profile.postcode }}</td>
+                <td>
+                    <ul>
+                        {% for order in user_data.orders %}
+                        <li>Order #{{ order.id }}: £{{ order.total_price|floatformat:2 }} placed on {{ order.created_at|date:"d M Y, H:i" }}</li>
+                        {% empty %}
+                        <li>No orders</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="buttons">
+        <a href="{% url 'admin_dashboard' %}"><button>Back to Admin Dashboard</button></a>
+    </div>
+</body>
+</html>
