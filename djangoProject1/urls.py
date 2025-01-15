@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
-    path('', include('Secure_Cart.urls')),
+    path('', include('welcome_app.urls')),
 ]
 
 

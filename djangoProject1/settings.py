@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Secure_Cart',
+    'welcome_app',
 ]
 
 MIDDLEWARE = [

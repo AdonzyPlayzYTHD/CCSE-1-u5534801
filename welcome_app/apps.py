@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class WelcomeAppConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Secure_Cart' # names the welcome app
+    name = 'welcome_app' # names the welcome app

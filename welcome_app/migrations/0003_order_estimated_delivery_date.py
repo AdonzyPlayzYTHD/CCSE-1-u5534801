@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Secure_Cart', '0002_remove_order_order_number_alter_profile_user'),
+        ('welcome_app', '0002_remove_order_order_number_alter_profile_user'),
     ]
 
     operations = [

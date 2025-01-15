@@ -1,6 +1,6 @@
 from django.contrib import admin
-from Secure_Cart.welcome_app.models import Profile
-from Secure_Cart.welcome_app.models import Product
+from welcome_app.models import Profile
+from welcome_app.models import Product
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):

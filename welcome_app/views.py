@@ -19,7 +19,7 @@ class ProductForm(forms.ModelForm): # the products form class showing the attrib
 @user_passes_test(lambda u: u.is_superuser)
 def admin_dashboard(request): # The admins dashboard
     current_year = datetime.now().year
-    return render(request, 'Secure_Cart/admin_dashboard.html', {'current_year': current_year})
+    return render(request, 'welcome_app/admin_dashboard.html', {'current_year': current_year})
 
 # Manage Products
 @user_passes_test(lambda u: u.is_superuser)
@@ -31,7 +31,7 @@ def manage_products(request): #Shows the class for the admin the addition of pro
         return redirect('manage_products')
 
     products = Product.objects.all()
-    return render(request, 'Secure_Cart/manage_products.html', {'form': form, 'products': products})
+    return render(request, 'welcome_app/manage_products.html', {'form': form, 'products': products})
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -42,7 +42,7 @@ def delete_product(request, product_id): # shows the class of the admin deleting
     return redirect('manage_products')
 
 def welcome_page(request): # the view showing the welcome page where all users are welcomed before being asked to sign in
-    return render(request, 'Secure_Cart/welcome.html')
+    return render(request, 'welcome_app/welcome.html')
 
 
 def login_view(request):# the login view where users are asked to login adn enter their credentials
@@ -54,13 +54,13 @@ def login_view(request):# the login view where users are asked to login adn ente
             login(request, user)
             return redirect('verify_security_question')  # Correct redirection
         messages.error(request, "Invalid username or password.")
-    return render(request, 'Secure_Cart/login.html')
+    return render(request, 'welcome_app/login.html')
 
 
 @login_required # shows only authorised users are allowed to get this far
 def homepage(request):
     products = Product.objects.all()
-    return render(request, 'Secure_Cart/homepage.html', {'products': products})
+    return render(request, 'welcome_app/homepage.html', {'products': products})
 
 
 SECURITY_QUESTIONS = [ # the security questions users will be asked after trying to login, a second line of defence
@@ -112,7 +112,7 @@ def signup_view(request): # a signup view showing the details which users need t
         messages.success(request, "Account created successfully! Please log in.")
         return redirect('login')
 
-    return render(request, 'Secure_Cart/signup.html', {'security_questions': SECURITY_QUESTIONS})
+    return render(request, 'welcome_app/signup.html', {'security_questions': SECURITY_QUESTIONS})
 
 @login_required
 def update_profile_view(request): # function needed for when a user wants to update their profile
@@ -137,7 +137,7 @@ def update_profile_view(request): # function needed for when a user wants to upd
         messages.success(request, "Profile updated successfully!")
         return redirect('homepage')
 
-    return render(request, 'Secure_Cart/update_profile.html', {'user': user, 'profile': profile})
+    return render(request, 'welcome_app/update_profile.html', {'user': user, 'profile': profile})
 
 @user_passes_test(lambda u: u.is_superuser) # ensures that only the admin can access this function and view all of the users information
 def all_users_view(request):
@@ -150,7 +150,7 @@ def all_users_view(request):
             'orders': orders
         })
 
-    return render(request, 'Secure_Cart/all_users.html', {'users_with_orders': users_with_orders})
+    return render(request, 'welcome_app/all_users.html', {'users_with_orders': users_with_orders})
 @login_required
 def add_to_basket(request, product_id): # the function of how customers can add items to their basket
     product = get_object_or_404(Product, id=product_id)
@@ -177,7 +177,7 @@ def add_to_basket(request, product_id): # the function of how customers can add 
 @login_required
 def view_basket(request): # allows for customers to view the items which they have added to their basket
     basket, _ = Basket.objects.get_or_create(user=request.user)
-    return render(request, 'Secure_Cart/basket.html', {'basket': basket})
+    return render(request, 'welcome_app/basket.html', {'basket': basket})
 
 @login_required
 def remove_from_basket(request, item_id): # customers are allowed to remove items from their baskets
@@ -224,7 +224,7 @@ def buy_now(request):# once added to the basket, customers are now able to check
 @login_required
 def orders(request):
     orders = Order.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'Secure_Cart/orders.html', {'orders': orders})
+    return render(request, 'welcome_app/orders.html', {'orders': orders})
 @login_required
 def remove_order(request, order_id):
     # makes sure that that order belongs to the signed in user
@@ -256,4 +256,4 @@ def verify_security_question(request):
         else:
             messages.error(request, "Incorrect security answer. Please try again.")
 
-    return render(request, 'Secure_Cart/verify_security_question.html', {'security_question': profile.security_question})
+    return render(request, 'welcome_app/verify_security_question.html', {'security_question': profile.security_question})
