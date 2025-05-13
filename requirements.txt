@@ -1,4 +1,4 @@
 bcrypt==4.3.0
+gunicorn==23.0.0
+packaging==25.0
 pycryptodome==3.22.0
-
-#d
