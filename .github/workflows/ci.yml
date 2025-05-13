@@ -33,3 +33,12 @@ jobs:
         fail_action: false
         allow_issue_writing: false
 
+
+    - name: Upload ZAP Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: zap_scan
+        path: report_html.html
+
+
+
