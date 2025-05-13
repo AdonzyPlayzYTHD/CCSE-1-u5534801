@@ -121,4 +121,4 @@ environ.Env.read_env()
 
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+ALLOWED_HOSTS = ['ccse-1-u5534801.onrender.com']
