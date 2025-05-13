@@ -34,11 +34,6 @@ jobs:
         allow_issue_writing: false
 
 
-    - name: Upload ZAP Report
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: zap_scan
-        path: report_html.html
 
 
 
