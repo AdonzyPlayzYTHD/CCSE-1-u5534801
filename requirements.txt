@@ -1,4 +1,9 @@
+asgiref==3.8.1
 bcrypt==4.3.0
+Django==4.2.21
 gunicorn==23.0.0
 packaging==25.0
 pycryptodome==3.22.0
+sqlparse==0.5.3
+typing_extensions==4.13.2
+tzdata==2025.2
