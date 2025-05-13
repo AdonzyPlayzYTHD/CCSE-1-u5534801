@@ -24,4 +24,13 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-        echo "✅ Dependencies installed"
+        echo "Dependencies installed"
+
+
+    - name: Run OWASP ZAP Baseline Scan
+      run: |
+        docker pull owasp/zap2docker-stable
+        docker run -v $(pwd):/zap/wrk/:rw \
+          owasp/zap2docker-stable zap-baseline.py \
+          -t https://ccse-1-u5534801.onrender.com \
+          -r zap-report.html || true
