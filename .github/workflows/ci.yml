@@ -34,12 +34,4 @@ jobs:
           allow_issue_writing: false
           format: html
 
-      - name: Upload ZAP Report
-        if: always()  
-        uses: actions/upload-artifact@v3.1.2
-        with:
-          name: zap_report
-          path: |
-            report_html.html
-            report_json.json
-            report_md.md
+
