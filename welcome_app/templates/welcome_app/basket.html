@@ -92,12 +92,10 @@
         </tbody>
     </table>
 
-    <!-- Total Amount -->
     <div class="total">
         Total: £<strong>{{ basket.items.all|sum_total }}</strong>
     </div>
 
-    <!-- Buttons -->
     <div class="buttons">
         <a href="{% url 'homepage' %}">
             <button>Return to Homepage</button>
