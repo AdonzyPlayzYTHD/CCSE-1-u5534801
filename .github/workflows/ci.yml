@@ -12,29 +12,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
 
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-        echo "Dependencies installed"
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          echo "Dependencies installed"
 
-    - name: OWASP ZAP Scan
-      uses: zaproxy/action-baseline@v0.12.0
-      with:
-        target: 'https://ccse-1-u5534801.onrender.com'
-        cmd_options: '-a'
-        fail_action: false
-        allow_issue_writing: false
+      - name: Run OWASP ZAP Scan
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
+          target: 'https://ccse-1-u5534801.onrender.com'
+          cmd_options: '-a'
+          fail_action: false
+          allow_issue_writing: false
+          format: html
 
-
-
-
-
-
+      - name: Upload ZAP Report
+        if: always()  
+        uses: actions/upload-artifact@v3
+        with:
+          name: zap_report
+          path: |
+            report_html.html
+            report_json.json
+            report_md.md
