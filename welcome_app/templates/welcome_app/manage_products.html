@@ -53,21 +53,21 @@
 <body>
     <h1>Manage Products</h1>
 
-    <!-- Button to go back to Admin Dashboard -->
+
     <div class="button-container">
         <a href="{% url 'admin_dashboard' %}">
             <button>Back to Dashboard</button>
         </a>
     </div>
 
-    <!-- Product Form -->
+
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Add Product</button>
     </form>
 
-    <!-- Product List -->
+
     <table>
         <thead>
             <tr>
