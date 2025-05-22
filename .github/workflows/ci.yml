@@ -23,7 +23,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-        echo "✅ Dependencies installed"
+        echo "Dependencies installed"
 
     - name: OWASP ZAP Scan
       uses: zaproxy/action-baseline@v0.12.0
